@@ -104,9 +104,4 @@ function fromJulianDay(julianday) {
   //return [res, jalpha, ja, jb, jc, jd, je, day, mm, year];
 }
 
-module.exports.unique = unique;
-module.exports.isEmpty = isEmpty;
-module.exports.julianday = julianday;
-module.exports.fromJulianDay = fromJulianDay;
-
-// export { unique, isEmpty, julianday, fromJulianDay }
+export { unique, isEmpty, julianday, fromJulianDay }

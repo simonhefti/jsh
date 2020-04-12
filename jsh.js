@@ -1,7 +1,8 @@
-(function (factory) {
-  typeof define === 'function' && define.amd ? define(factory) :
-  factory();
-}((function () { 'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = global || self, factory(global.jsh = {}));
+}(this, (function (exports) { 'use strict';
 
   const IGREG2 = 2299161;
   const IGREG1 = (15 + 31 * (10 + 12 * 1582));
@@ -109,11 +110,11 @@
     //return [res, jalpha, ja, jb, jc, jd, je, day, mm, year];
   }
 
-  module.exports.unique = unique;
-  module.exports.isEmpty = isEmpty;
-  module.exports.julianday = julianday;
-  module.exports.fromJulianDay = fromJulianDay;
+  exports.fromJulianDay = fromJulianDay;
+  exports.isEmpty = isEmpty;
+  exports.julianday = julianday;
+  exports.unique = unique;
 
-  // export { unique, isEmpty, julianday, fromJulianDay }
+  Object.defineProperty(exports, '__esModule', { value: true });
 
 })));

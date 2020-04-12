@@ -30,17 +30,23 @@
   /** get day of year (1 for Jan first) */
   function dayofyear(date) {
 
-    var jd1 = julianday(new Date(date.getFullYear(), 0, 1));
-    var jd2 = julianday(date);
+    var jd1 = julianday(new Date(date.getFullYear(), 0, 1), { includeTime: false });
+    var jd2 = julianday(date, { includeTime: false });
     // console.log(new Date(date.getFullYear(), 0, 1), jd1,jd2);
     return jd2 - jd1 + 1;
   }
 
 
   /** calculate julian day for given date */
-  function julianday(date) {
+  function julianday(date, options = {}) {
     if (isEmpty(date)) {
       return 0;
+    }
+    var includeTime = true;
+    if (!isEmpty(options)) {
+      if (!isEmpty(options.includeTime)) {
+        includeTime = options.includeTime;
+      }
     }
     var res = 0,
       ja = 0,
@@ -67,7 +73,10 @@
       res += 2 - ja + Math.floor(0.25 * ja);
     }
 
-    res += (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds()) / 24 / 3600;
+    if (includeTime) {
+      res += (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds()) / 24 / 3600;
+    }
+
 
     return res;
     // return [res, year, mm, id, jy, jm, ja];
@@ -76,13 +85,21 @@
 
   // convert julian day number to date (after Numerical Recipies)
 
-  function fromJulianDay(julianday) {
+  function fromJulianDay(julianday, options = {}) {
     var ja = 0,
       jalpha = 0,
       jb = 0,
       jc = 0,
       jd = 0,
       je = 0;
+
+    var includeTime = true;
+    if (!isEmpty(options)) {
+      if (!isEmpty(options.includeTime)) {
+        includeTime = options.includeTime;
+      }
+    }
+    console.log("options: ", options, " includeTime", includeTime);
 
     var fraction = (julianday - Math.floor(julianday)) * 24 * 3600;
 
@@ -105,19 +122,21 @@
     if (year <= 0) --year;
 
     // console.log("day: " + day);
+    // console.log("year:" , year, " mm: ", mm, " day:", day);
 
-    var hr = Math.floor(fraction / 3600);
-    fraction -= hr * 3600;
-    var min = Math.floor(fraction / 60);
-    var sec = Math.round(fraction - min * 60);
+    var res = new Date(year, mm - 1, day, 0, 0, 0, 0);
 
-    // console.log("hr: ", hr, " min:", min, " sec:", sec);
+    if (includeTime) {
+      var hr = Math.floor(fraction / 3600);
+      fraction -= hr * 3600;
+      var min = Math.floor(fraction / 60);
+      var sec = Math.round(fraction - min * 60);
 
-    var res = new Date(year, mm - 1, day, hr, min, sec, 0);
+      // console.log("year:" , year, " hr: ", hr, " min:", min, " sec:", sec);
 
+      res = new Date(year, mm - 1, day, hr, min, sec, 0);
+    }
     return res;
-
-    //return [res, jalpha, ja, jb, jc, jd, je, day, mm, year];
   }
 
   /** [linear algebra] calculate norm of vector */

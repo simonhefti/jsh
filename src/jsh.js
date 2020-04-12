@@ -93,7 +93,7 @@ function fromJulianDay(julianday, options = {}) {
       includeTime = options.includeTime;
     }
   }
-  console.log("options: ", options, " includeTime", includeTime);
+  // console.log("options: ", options, " includeTime", includeTime);
 
   var fraction = (julianday - Math.floor(julianday)) * 24 * 3600;
 

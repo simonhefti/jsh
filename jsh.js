@@ -110,9 +110,47 @@
     //return [res, jalpha, ja, jb, jc, jd, je, day, mm, year];
   }
 
+  /** [linear algebra] calculate norm of vector */
+  function norm(v) {
+    var norm = 0.0;
+    for (var i = 0; i < v.length; i++) {
+      norm += v[i] * v[i];
+    }
+    norm = Math.sqrt(norm);
+    return norm;
+  }
+  /** [linear algebra] calculate dot product of 2 vectors */
+  function dot(v1, v2) {
+    var res = 0.0;
+    for (var i = 0; i < v1.length; i++) {
+      res += v1[i] * v2[i];
+    }
+    return res;
+  }
+  /** [linear algebra] calculate angle [rad] between 2 vectors */
+  function angle(v1, v2) {
+    var res = cosinedistance(v1, v2);
+    res = Math.acos(res);
+    return res;
+  }
+  /** 1 if vectors align (angle is 0), 0 if vectors are perpendicular (angle 90 deg) */
+  function cosinedistance(v1, v2) {
+    var res = 0.0;
+    // theta <- acos( sum(a*b) / ( sqrt(sum(a * a)) * sqrt(sum(b * b)) ) )
+    var norm1 = norm(v1);
+    var norm2 = norm(v2);
+    var d = dot(v1, v2);
+    res = d / norm1 / norm2;
+    return res;
+  }
+
+  exports.angle = angle;
+  exports.cosinedistance = cosinedistance;
+  exports.dot = dot;
   exports.fromJulianDay = fromJulianDay;
   exports.isEmpty = isEmpty;
   exports.julianday = julianday;
+  exports.norm = norm;
   exports.unique = unique;
 
   Object.defineProperty(exports, '__esModule', { value: true });

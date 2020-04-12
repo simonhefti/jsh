@@ -28,3 +28,8 @@ test('julian day roundtrip', () => {
     }
 
 });
+
+test('cosine distance', () => {
+    expect(jsh.cosinedistance([0,1],[0,1])).toBe(1);
+    expect(jsh.cosinedistance([0,1],[1,0])).toBe(0);
+});

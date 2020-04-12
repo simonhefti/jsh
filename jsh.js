@@ -27,6 +27,16 @@
     return false;
   }
 
+  /** get day of year (1 for Jan first) */
+  function dayofyear(date) {
+
+    var jd1 = julianday(new Date(date.getFullYear(), 0, 1));
+    var jd2 = julianday(date);
+    // console.log(new Date(date.getFullYear(), 0, 1), jd1,jd2);
+    return jd2 - jd1 + 1;
+  }
+
+
   /** calculate julian day for given date */
   function julianday(date) {
     if (isEmpty(date)) {
@@ -146,6 +156,7 @@
 
   exports.angle = angle;
   exports.cosinedistance = cosinedistance;
+  exports.dayofyear = dayofyear;
   exports.dot = dot;
   exports.fromJulianDay = fromJulianDay;
   exports.isEmpty = isEmpty;

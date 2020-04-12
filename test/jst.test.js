@@ -1,5 +1,12 @@
 const jsh = require('../src/jsh');
 
+test('day of year', () => {
+    expect(jsh.dayofyear(new Date(2020,0,1))).toBe(1);
+    expect(jsh.dayofyear(new Date(2020,0,30))).toBe(30);
+    expect(jsh.dayofyear(new Date(2020,1,1))).toBe(32);
+});
+
+
 test('julian day 1.1.2020', () => {
     expect(jsh.julianday(new Date(2020,0,1,0,0,0,0))).toBe(2458850.0);
 });

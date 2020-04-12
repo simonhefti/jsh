@@ -21,6 +21,16 @@ function isEmpty(val) {
   return false;
 }
 
+/** get day of year (1 for Jan first) */
+function dayofyear(date) {
+
+  var jd1 = julianday(new Date(date.getFullYear(), 0, 1));
+  var jd2 = julianday(date);
+  // console.log(new Date(date.getFullYear(), 0, 1), jd1,jd2);
+  return jd2 - jd1 + 1;
+}
+
+
 /** calculate julian day for given date */
 function julianday(date) {
   if (isEmpty(date)) {
@@ -144,6 +154,6 @@ function cosinedistance(v1, v2) {
 
 export {
   unique, isEmpty,
-  julianday, fromJulianDay,
+  julianday, fromJulianDay, dayofyear,
   norm, dot, angle, cosinedistance
 }
